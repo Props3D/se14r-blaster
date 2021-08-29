@@ -24,7 +24,7 @@ class EasyHaptic
 {
   private:
     Adafruit_DRV2605 drv;
-    bool activate = false;
+    bool activated = false;
 
   public:
     EasyHaptic() {};
@@ -37,7 +37,7 @@ class EasyHaptic
       drv.setMode(DRV2605_MODE_INTTRIG); // default, internal trigger when sending GO command
 
       drv.selectLibrary(1);
-      drv.setWaveform(0, 84);  // ramp up medium 1, see datasheet part 11.2
+      drv.setWaveform(0, 84); // ramp up medium 1, see datasheet part 11.2
       drv.setWaveform(1, 1);  // strong click 100%, see datasheet part 11.2
       drv.setWaveform(2, 0);  // end of waveforms
 #endif
@@ -49,7 +49,7 @@ class EasyHaptic
      */
     void activate() {
       debugLog("activating haptic motor");
-      activate = true;
+      activated = true;
     }
 
     /**

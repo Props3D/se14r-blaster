@@ -11,6 +11,7 @@
 #include "easycounter.h"
 #include "easyaudio.h"
 #include "easyledv3.h"
+#include "easyhaptic.h"
 
 /**
  * All components are controlled or enabled by "config.h". Before running, 
@@ -27,6 +28,7 @@ ezBlasterShot blasterShot(fireLed.RED, fireLed.ORANGE);  // initialize colors to
 EasyCounter fireCounter("fire", TRACK_FIRE_ARR, TRACK_CLIP_EMPTY, TRACK_CLIP_RELOAD);
 EasyCounter stunCounter("stun", TRACK_STUN_ARR, TRACK_CLIP_EMPTY, TRACK_CLIP_RELOAD);
 
+EasyHaptic haptic;
 
 // trigger mode status
 uint8_t selectedTriggerMode   = SELECTOR_FIRE_MODE;   // sets the fire mode to blaster to start
@@ -57,6 +59,9 @@ void setup () {
   fireCounter.begin(0, 10, COUNTER_MODE_DOWN);
   stunCounter.begin(0, 10, COUNTER_MODE_DOWN);
 
+  // init the haptic ERM motors
+  haptic.begin();
+
   // queue the first track
   debugLog("Powering up");
   audio.queuePlayback(TRACK_START_UP);
@@ -81,7 +86,7 @@ void handleAudioPlayback() {
  * 
  */
 void handleHapticPlayback() {
-  audio.playQueuedTrack();
+  haptic.updateMotor();
 }
 
 /**
@@ -129,6 +134,7 @@ void sendBlasterPulse(EasyCounter &counter) {
   audio.queuePlayback(track);
   if (emptyClip == false) {
     fireLed.activate(blasterShot);
+    haptic.activate();
   }
 }
 
