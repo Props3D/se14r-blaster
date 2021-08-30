@@ -19,7 +19,13 @@
  * 
  * Playback is by track index. The track index is determined by the order in which 
  * the files are loaded/copied onto the SD card.
- * eg. audio.playTrack(1);
+ * eg. audio.playTrackNow(1);
+ * 
+ * When using in main loop, better to queue tracks for playback and eliminate using delays.
+ * eg. audio.queuePlayback(1);
+ * 
+ * In the main loop, playback the next queued track:
+ * eg. audio.playQueuedTrack();
  */
 class EasyAudio
 {
@@ -46,9 +52,12 @@ class EasyAudio
     }
 
     void playQueuedTrack() {
+#ifdef ENABLE_EASY_AUDIO
       if (!tracks.empty()) {
-        playTrackNow( tracks.pop() );
+        debugLog("playing track ");
+        player.playFromMP3Folder( tracks.pop() ); 
       }
+#endif
     }
 
     void playTrackNow(uint8_t track) {

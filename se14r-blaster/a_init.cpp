@@ -83,7 +83,7 @@ void loop () {
  * Run the haptic motor pattern
  */
 void runHapticPlayback() {
-  haptic.updateMotor();
+  haptic.playWaveforms();
 }
 /**
  * Playback the next queued track

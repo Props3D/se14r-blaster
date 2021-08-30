@@ -15,9 +15,11 @@
  * Call the begin function to initialize the driver, set the mode, select library, and set waveforms.
  * eg.motor.begin();
  * 
- * Motor can be activated 
- * the files are loaded/copied onto the SD card.
- * eg. audio.playTrack(1);
+ * Motor can be activated for playback:
+ * eg. motor.activate();
+ * 
+ * In the main loop, run the waveforms:
+ * eg. motor.updateMotor();
  */
 class EasyHaptic
 {
@@ -48,18 +50,20 @@ class EasyHaptic
      * See ezPattern for classes.
      */
     void activate() {
+#ifdef ENABLE_EASY_HAPTIC
       debugLog("activating haptic motor");
       _activated = true;
+#endif
     }
 
     /**
      * This should be called in the main program loop().
      * The call is a proxy to the ezPattern, if one has been provided.
      */
-    void updateMotor() {
+    void playWaveforms() {
 #ifdef ENABLE_EASY_HAPTIC
-      debugLog("updating haptics");
       if (_activated) {
+        debugLog("updating haptics");
         _drv.go();
         _activated = !_activated;
       }
