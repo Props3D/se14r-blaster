@@ -39,9 +39,8 @@ class EasyHaptic
 
       _drv.selectLibrary(1);
       _drv.setWaveform(0, 84); // ramp up medium 1, see datasheet part 11.2
-      _drv.setWaveform(1, 14); // strong buzz 100%, see datasheet part 11.2
-      _drv.setWaveform(2, 14); // strong buzz 100%, see datasheet part 11.2
-      _drv.setWaveform(3, 0);  // end of waveforms
+      _drv.setWaveform(1, 15); // strong buzz 100%, see datasheet part 11.2
+      _drv.setWaveform(2, 0);  // end of waveforms
 #endif
     }
 
