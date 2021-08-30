@@ -30,7 +30,7 @@ class ezPattern {
     uint8_t _frameRate             = 16;    // larger number is a slower fade
     unsigned long _flashTimer      = 0;     // time when the white flash started
 
-    static const uint8_t _flashDuration = 75;    // larger number will hold a white flash longer
+    static const uint8_t _flashDuration = 50;    // larger number will hold a white flash longer
     static const uint8_t _delta         = 1;     // Sets forward or backwards direction amount.
     static const uint8_t _fadeRate      = 220;   // How fast to fade out tail. [0-255]
 
@@ -74,8 +74,18 @@ class ezBlasterShot : public ezPattern
     const CRGB _coolOffColor = CRGB::Black;
 
     // processing variables
-    uint8_t _blendRate = 2;    // larger number will be a faster color blend
+    uint8_t _blendRate     = 32;  // larger number will be a faster color blend
+    uint8_t _blendSteps    = 1;   // larger number will be a slower color blend
 
+    uint8_t calcBlendRate(CRGB& cur, const CRGB& target) {
+      uint8_t red = delta(cur.red, target.red) / _blendSteps;
+      uint8_t green = delta(cur.green, target.green) / _blendSteps;
+      uint8_t blue = delta(cur.blue, target.blue) / _blendSteps;
+      return max(red, max(green, blue));
+    }
+    inline uint8_t delta(uint8_t a, uint8_t b) {
+      return (a < b) ? b-a : a-b;
+    }
     // helper functions
     bool checkShotCooled(CRGB *leds, uint8_t count) {
       if ((_activated == 1) && (_currentColor == _coolOffColor)) {
@@ -89,8 +99,8 @@ class ezBlasterShot : public ezPattern
     bool checkShotBlended(CRGB *leds, uint8_t count) {
       if ((_activated == 2) && (_currentColor == _targetColor)) {
         // on match, we set to target to black to fade out
-        _activated = 1;  // phase 2
-        _blendRate = 32;   // faster fade to black
+        _activated = 1;    // phase 2
+        _blendRate = calcBlendRate(_startColor, _coolOffColor);    // reset blend rate
         return true;
       }
       return false;
@@ -99,14 +109,7 @@ class ezBlasterShot : public ezPattern
       if (_activated == 1) {
         fadeTowardColor(_currentColor, _coolOffColor, _blendRate);
         fill_solid(leds, count, _currentColor);
-        _blendRate = _blendRate+1;
         this->show();
-
-        // double blend speed after every 5 executions to quicken the transition
-        // This will make the fading non-linear, but it's matter of timing on the effect
-        EVERY_N_MILLISECONDS(_frameRate*5) {
-            _blendRate = _blendRate*2; 
-        }
         return true;
       }
       return false;
@@ -115,14 +118,7 @@ class ezBlasterShot : public ezPattern
       if (_activated == 2) {
         fadeTowardColor(_currentColor, _targetColor, _blendRate);
         fill_solid(leds, count, _currentColor);
-        _blendRate = _blendRate+1;
         this->show();
-
-        // double blend speed after every 5 executions to quicken the transition
-        // This will make the fading non-linear, but it's matter of timing on the effect
-        EVERY_N_MILLISECONDS(_frameRate*5) {
-            _blendRate = _blendRate*2; 
-        }
         return true;
       }
       return false;
@@ -130,8 +126,10 @@ class ezBlasterShot : public ezPattern
     bool checkWhiteFlash(CRGB *leds, uint8_t count) {
       if (_activated == 3) {
         long duration = millis() - _flashTimer;
-        if (duration > _flashDuration)
-          _activated = 2; // start the fade
+        if (duration > _flashDuration) {
+          _activated = 2;   // start the fade
+          _blendRate = calcBlendRate(_startColor, _targetColor);    // reset blend rate
+        }
         return true;
       }
       return false;
@@ -155,20 +153,29 @@ class ezBlasterShot : public ezPattern
       if( cur == target) return;
       
       if( cur < target ) {
-        uint8_t _delta = target - cur;
-        _delta = scale8_video( _delta, amount);
-        cur += _delta;
+        uint8_t delta = target - cur;
+        if (amount < delta) {
+          //delta = scale8_video(delta, amount);
+          delta = amount;
+          cur += delta;
+        } else
+          cur = target;
       } else {
-        uint8_t _delta = cur - target;
-        _delta = scale8_video( _delta, amount);
-        cur -= _delta;
+        uint8_t delta = cur - target;
+        if (amount < delta) {
+          //delta = scale8_video(delta, amount);
+          delta = amount;
+          cur -= delta;
+        } else
+          cur = target;
       }
     }
   public:
-    ezBlasterShot(CRGB initialColor, CRGB endColor, callback_function callback = 0, uint8_t frameRate = 16) {
+    ezBlasterShot(CRGB initialColor, CRGB endColor, uint8_t speed = 6, callback_function callback = 0) {
       initialize(initialColor, endColor);
+      _frameRate = 30;
       _callbackPtr = callback;
-      _frameRate = frameRate;
+      _blendSteps = max (speed, 1);
     }
     ~ezBlasterShot() {
         _callbackPtr = 0;
@@ -183,7 +190,6 @@ class ezBlasterShot : public ezPattern
       debugLog("BlasterShot - initialized");
       _currentColor = CRGB(_startColor.r, _startColor.g, _startColor.b);
       _activated = 3;    // white flash and color fade
-      _blendRate = 2;    // reset blend rate
       this->whiteflash(leds, count);
     }
 

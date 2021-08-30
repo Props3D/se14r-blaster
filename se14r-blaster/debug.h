@@ -48,6 +48,7 @@ static DebugLog<false> debug;
 #endif
 
 #define debugLog(msg) debug.log(F(msg));
+#define debugLogInt(msg, base) debug.log(msg, base);
 
 
 #endif

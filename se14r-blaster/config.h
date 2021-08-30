@@ -16,9 +16,9 @@
 #define ENABLE_DEBUG         1
 
 // Comment out if you want to disable audio
-#define ENABLE_EASY_AUDIO          1 //Enable all audio 
+//#define ENABLE_EASY_AUDIO          1 //Enable all audio 
 #define ENABLE_EASY_BUTTON         1 //Enable all buttons
-#define ENABLE_EASY_HAPTIC .       1 //Enable haptic motors
+//#define ENABLE_EASY_HAPTIC .       1 //Enable haptic motors
 
 // Pin configuration for MP3 Player
 #define AUDIO_RX_PIN        10
