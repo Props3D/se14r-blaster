@@ -1,7 +1,7 @@
 /*
  * name:  SE-14R
  * Author:  FriskyDingo
- * Date:  2021-07-14
+ * Date:  2021-08-28
  * Description: Code for SE-14r blaster setup
  */
 #include <Arduino.h>
@@ -23,7 +23,7 @@ EasyAudio audio(AUDIO_RX_PIN, AUDIO_TX_PIN);
 EasyButton trigger(TRIGGER_PIN);
 
 EasyLedv3<FIRE_LED_CNT, FIRE_LED_PIN> fireLed;
-ezBlasterShot blasterShot(fireLed.RED, fireLed.ORANGE);  // initialize colors to starting fire mode
+ezBlasterShot blasterShot(fireLed.RED, fireLed.ORANGE, 0, 8);  // initialize colors to starting fire mode
 
 EasyCounter fireCounter("fire", TRACK_FIRE_ARR, TRACK_CLIP_EMPTY, TRACK_CLIP_RELOAD);
 EasyCounter stunCounter("stun", TRACK_STUN_ARR, TRACK_CLIP_EMPTY, TRACK_CLIP_RELOAD);
@@ -34,9 +34,9 @@ EasyHaptic haptic;
 uint8_t selectedTriggerMode   = SELECTOR_FIRE_MODE;   // sets the fire mode to blaster to start
 
 // function declarations
-void handleAudioPlayback();
-void handleHapticPlayback();
-void handleLedDisplay();
+void runAudioPlayback();
+void runHapticPlayback();
+void runLedDisplay();
 void handleFireTrigger();
 void handleSelectorMode();
 void sendBlasterPulse(EasyCounter &counter);
@@ -67,26 +67,35 @@ void setup () {
   audio.queuePlayback(TRACK_START_UP);
 }
 
+/**
+ * The main loop.
+ */
 void loop () {
-  // always play the audio track first, as other methods can queue tracks to play
-  handleAudioPlayback();
-  handleHapticPlayback();
-  handleLedDisplay();
+  // always handle the activated components first, before processing new inputs
+  runHapticPlayback();
+  runAudioPlayback();
+  runLedDisplay();
+  // check for new inputs
   handleFireTrigger();
 }
 
 /**
- * 
+ * Run the haptic motor pattern
  */
-void handleAudioPlayback() {
+void runHapticPlayback() {
+  haptic.updateMotor();
+}
+/**
+ * Playback the next queued track
+ */
+void runAudioPlayback() {
   audio.playQueuedTrack();
 }
-
 /**
- * 
+ * Run the led pattern
  */
-void handleHapticPlayback() {
-  haptic.updateMotor();
+void runLedDisplay() {
+  fireLed.updateDisplay();
 }
 
 /**
@@ -106,9 +115,6 @@ void handleFireTrigger() {
   }
 }
 
-void handleLedDisplay() {
-  fireLed.updateDisplay();
-}
 /**
  * Sends a blaster pulse.
  *   1. Toggles a clip counter

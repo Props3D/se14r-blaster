@@ -25,14 +25,14 @@ typedef void (*callback_function)(void); // type for conciseness
  */
 class ezPattern {
   protected:
-    callback_function callbackPtr = 0;     // pointer to callback function
-    uint8_t activated             = 0;     // signal when the pattern should be active
-    uint8_t frameRate             = 16;    // larger number is a slower fade
-    unsigned long flashTimer      = 0;     // time when the white flash started
+    callback_function _callbackPtr = 0;     // pointer to callback function
+    uint8_t _activated             = 0;     // signal when the pattern should be active
+    uint8_t _frameRate             = 16;    // larger number is a slower fade
+    unsigned long _flashTimer      = 0;     // time when the white flash started
 
-    static const uint8_t flashDuration = 75;    // larger number will hold a white flash longer
-    static const uint8_t delta         = 1;     // Sets forward or backwards direction amount.
-    static const uint8_t fadeRate      = 220;   // How fast to fade out tail. [0-255]
+    static const uint8_t _flashDuration = 75;    // larger number will hold a white flash longer
+    static const uint8_t _delta         = 1;     // Sets forward or backwards direction amount.
+    static const uint8_t _fadeRate      = 220;   // How fast to fade out tail. [0-255]
 
     // fucntion declartions
     void show() {
@@ -43,15 +43,15 @@ class ezPattern {
     }
     void completed(struct CRGB *leds, uint8_t count) {
       clear(leds, count);
-      if (callbackPtr) callbackPtr();
+      if (_callbackPtr) _callbackPtr();
     }
     void whiteflash(CRGB *leds, int count) {
-      flashTimer = millis(); // capture the time for timing the flash
+      _flashTimer = millis(); // capture the time for timing the flash
       fill_solid(leds, count, CRGB::White);
       show();
     }
     void fadeToBlack(CRGB *leds, int count) {
-      fadeToBlackBy(leds, count, fadeRate);
+      fadeToBlackBy(leds, count, _fadeRate);
     }
   public:
     virtual void activate(CRGB *leds, uint8_t count) = 0;
@@ -68,18 +68,18 @@ class ezPattern {
 class ezBlasterShot : public ezPattern
 {
   private:
-    CRGB currentColor;  // color
-    CRGB startColor;    // starting color
-    CRGB targetColor;   // target color
-    const CRGB coolOffColor = CRGB::Black;
+    CRGB _currentColor;  // color
+    CRGB _startColor;    // starting color
+    CRGB _targetColor;   // target color
+    const CRGB _coolOffColor = CRGB::Black;
 
     // processing variables
-    uint8_t blendRate = 2;    // larger number will be a faster color blend
+    uint8_t _blendRate = 2;    // larger number will be a faster color blend
 
     // helper functions
     bool checkShotCooled(CRGB *leds, uint8_t count) {
-      if ((activated == 1) && (currentColor == coolOffColor)) {
-        activated = 0;
+      if ((_activated == 1) && (_currentColor == _coolOffColor)) {
+        _activated = 0;
         this->completed(leds, count);
         this->show();
         return true;
@@ -87,51 +87,51 @@ class ezBlasterShot : public ezPattern
       return false;
     }
     bool checkShotBlended(CRGB *leds, uint8_t count) {
-      if ((activated == 2) && (currentColor == targetColor)) {
+      if ((_activated == 2) && (_currentColor == _targetColor)) {
         // on match, we set to target to black to fade out
-        activated = 1;  // phase 2
-        blendRate = 32;   // faster fade to black
+        _activated = 1;  // phase 2
+        _blendRate = 32;   // faster fade to black
         return true;
       }
       return false;
     }
     bool coolingShot(CRGB *leds, uint8_t count) {
-      if (activated == 1) {
-        fadeTowardColor(currentColor, coolOffColor, blendRate);
-        fill_solid(leds, count, currentColor);
-        blendRate = blendRate+1;
+      if (_activated == 1) {
+        fadeTowardColor(_currentColor, _coolOffColor, _blendRate);
+        fill_solid(leds, count, _currentColor);
+        _blendRate = _blendRate+1;
         this->show();
 
         // double blend speed after every 5 executions to quicken the transition
         // This will make the fading non-linear, but it's matter of timing on the effect
-        EVERY_N_MILLISECONDS(frameRate*5) {
-            blendRate = blendRate*2; 
+        EVERY_N_MILLISECONDS(_frameRate*5) {
+            _blendRate = _blendRate*2; 
         }
         return true;
       }
       return false;
     }
     bool blendingShot(CRGB *leds, uint8_t count) {
-      if (activated == 2) {
-        fadeTowardColor(currentColor, targetColor, blendRate);
-        fill_solid(leds, count, currentColor);
-        blendRate = blendRate+1;
+      if (_activated == 2) {
+        fadeTowardColor(_currentColor, _targetColor, _blendRate);
+        fill_solid(leds, count, _currentColor);
+        _blendRate = _blendRate+1;
         this->show();
 
         // double blend speed after every 5 executions to quicken the transition
         // This will make the fading non-linear, but it's matter of timing on the effect
-        EVERY_N_MILLISECONDS(frameRate*5) {
-            blendRate = blendRate*2; 
+        EVERY_N_MILLISECONDS(_frameRate*5) {
+            _blendRate = _blendRate*2; 
         }
         return true;
       }
       return false;
     }
     bool checkWhiteFlash(CRGB *leds, uint8_t count) {
-      if (activated == 3) {
-        long duration = millis() - flashTimer;
-        if (duration > flashDuration)
-          activated = 2; // start the fade
+      if (_activated == 3) {
+        long duration = millis() - _flashTimer;
+        if (duration > _flashDuration)
+          _activated = 2; // start the fade
         return true;
       }
       return false;
@@ -155,40 +155,40 @@ class ezBlasterShot : public ezPattern
       if( cur == target) return;
       
       if( cur < target ) {
-        uint8_t delta = target - cur;
-        delta = scale8_video( delta, amount);
-        cur += delta;
+        uint8_t _delta = target - cur;
+        _delta = scale8_video( _delta, amount);
+        cur += _delta;
       } else {
-        uint8_t delta = cur - target;
-        delta = scale8_video( delta, amount);
-        cur -= delta;
+        uint8_t _delta = cur - target;
+        _delta = scale8_video( _delta, amount);
+        cur -= _delta;
       }
     }
   public:
-    ezBlasterShot(CRGB initialColor, CRGB endColor, callback_function callback = 0) {
+    ezBlasterShot(CRGB initialColor, CRGB endColor, callback_function callback = 0, uint8_t frameRate = 16) {
       initialize(initialColor, endColor);
-      callbackPtr = callback;
-      frameRate = 16;
+      _callbackPtr = callback;
+      _frameRate = frameRate;
     }
     ~ezBlasterShot() {
-        callbackPtr = 0;
+        _callbackPtr = 0;
     }
 
     void initialize(CRGB initialColor, CRGB endColor) {
-      startColor = CRGB(initialColor.r, initialColor.g, initialColor.b);
-      targetColor = CRGB(endColor.r, endColor.g, endColor.b);
+      _startColor = CRGB(initialColor.r, initialColor.g, initialColor.b);
+      _targetColor = CRGB(endColor.r, endColor.g, endColor.b);
     }
 
     void activate(CRGB *leds, uint8_t count) {
       debugLog("BlasterShot - initialized");
-      currentColor = CRGB(startColor.r, startColor.g, startColor.b);
-      activated = 3;    // white flash and color fade
-      blendRate = 2;    // reset blend rate
+      _currentColor = CRGB(_startColor.r, _startColor.g, _startColor.b);
+      _activated = 3;    // white flash and color fade
+      _blendRate = 2;    // reset blend rate
       this->whiteflash(leds, count);
     }
 
     void updateDisplay(CRGB *leds, uint8_t count) {
-      EVERY_N_MILLISECONDS(frameRate) {
+      EVERY_N_MILLISECONDS(_frameRate) {
         // stop fading and clear
         if (checkShotCooled(leds, count)) {
             debugLog("BlasterShot - ending blaster shot");
@@ -230,7 +230,7 @@ class ezBlasterShot : public ezPattern
 class ezBlasterPulse : public ezPattern
 {
   private:
-    CRGB color;                          // led color
+    CRGB _color;                          // led color
     uint8_t width = 2;                   // Can increase the number of pixels (width) of the chase. [1 or greater]
 
     uint8_t patternWidth = 0; // Total width of the pattern to animate
@@ -242,22 +242,22 @@ class ezBlasterPulse : public ezPattern
     // helper functions
     bool checkPulseFinshed(CRGB *leds, uint8_t count) {
       uint8_t endIdx = mirrored ? middle : count;
-      if (activated && ((advanceUp-patternWidth) > endIdx)) {
-        activated = 0;
+      if (_activated && ((advanceUp-patternWidth) > endIdx)) {
+        _activated = 0;
         return true;
       }
       return false;
     }
     bool checkPulseReachedTop(CRGB *leds, uint8_t count) {
       uint8_t endIdx = mirrored ? middle : count;
-      if (activated && (advanceUp == (endIdx-1))) {
+      if (_activated && (advanceUp == (endIdx-1))) {
         this->completed(leds, count);
         return true;
       }
       return false;
     }
     bool advancePulse(CRGB *leds, uint8_t count) {
-      if (activated) {
+      if (_activated) {
         // fade any previous leds to create a color trail
         this->fadeToBlack(leds, count);
         this->advancePulseUp(leds, count);
@@ -270,41 +270,41 @@ class ezBlasterPulse : public ezPattern
     }
     bool advancePulseUp(CRGB *leds, uint8_t count) {
       // Advance pixel postion up  the strip, rolling off the end
-      advanceUp = (advanceUp + delta);
+      advanceUp = (advanceUp + _delta);
       // determine the end if we are mirrored or not
       uint8_t endIdx = mirrored ? middle : count;
       // Update pixels down first 1/2 strip.
       for (uint8_t w = 0; w < width; w++) {
         int16_t pos = (advanceUp - w);
         if (pos > -1 && pos < endIdx)
-          leds[pos] = color;
+          leds[pos] = _color;
       }
     }
     bool advancePulseDown(CRGB *leds, uint8_t count) {
       // Advance pixel postion down the strip, rolling off the end
-      advanceDown = (advanceDown - delta);
+      advanceDown = (advanceDown - _delta);
       // determine the end if we are mirrored or not
       uint8_t endIdx = mirrored ? middle : 0;
       // Update pixels down second the strip.
       for (uint8_t w = 0; w < width; w++) {
         int16_t pos = (advanceDown + w);
         if (pos < count && pos >= endIdx)
-          leds[pos] = color;
+          leds[pos] = _color;
       }
     }
   public:
     ezBlasterPulse(CRGB initialColor, uint8_t eyeWidth, callback_function callback = 0, bool mirroredStrip = 0, uint8_t frameSpeed = 20) {
       initialize(initialColor, eyeWidth);
-      callbackPtr = callback;
+      _callbackPtr = callback;
       mirrored = mirroredStrip;
-      frameRate = frameSpeed;
+      _frameRate = frameSpeed;
     }
     ~ezBlasterPulse() {
-        callbackPtr = 0;
+        _callbackPtr = 0;
     }
 
     void initialize(CRGB initialColor, uint8_t eyeWidth) {
-      color = CRGB(initialColor.r, initialColor.g, initialColor.b);
+      _color = CRGB(initialColor.r, initialColor.g, initialColor.b);
       width = eyeWidth;
       patternWidth = width;
     }
@@ -313,12 +313,12 @@ class ezBlasterPulse : public ezPattern
       advanceUp = 0;
       advanceDown = count-1;
       middle = count/2;
-      activated = 1;
+      _activated = 1;
     }
 
     void updateDisplay(CRGB *leds, uint8_t count) {
       // Advance pixels to next position.
-      EVERY_N_MILLISECONDS(frameRate) {
+      EVERY_N_MILLISECONDS(_frameRate) {
         if (checkPulseFinshed(leds, count)) {
           this->fadeToBlack(leds, count);
           debugLog("Blaster Pulse - ending blaster pulse");
@@ -351,7 +351,7 @@ class ezBlasterPulse : public ezPattern
 class ezBlasterRepeatingPulse : public ezPattern
 {
   private:
-    CRGB color;                    // led color
+    CRGB _color;                    // led color
     uint8_t width = 2;             // Can increase the number of pixels (width) of the chase. [1 or greater]
     uint8_t repeats = 2;           // number of pulses
     uint8_t space = 1;             // space between pulses
@@ -363,28 +363,28 @@ class ezBlasterRepeatingPulse : public ezPattern
     uint8_t middle       = 0;   // Where's the middle of the strip
     bool fadePulse       = 1;   // Is there a trailing fade
 
-    static const uint8_t delta         = 1;     // Sets forward or backwards direction amount.
-    static const uint8_t fadeRate      = 220;   // How fast to fade out tail. [0-255]
+    static const uint8_t _delta         = 1;     // Sets forward or backwards direction amount.
+    static const uint8_t _fadeRate      = 220;   // How fast to fade out tail. [0-255]
 
     // helper fucntions
     bool checkPulseFinshed(CRGB *leds, uint8_t count) {
       uint8_t endIdx = mirrored ? middle : count;
-      if (activated && ((advanceUp-patternWidth) > endIdx)) {
-        activated = 0;
+      if (_activated && ((advanceUp-patternWidth) > endIdx)) {
+        _activated = 0;
         return true;
       }
       return false;
     }
     bool checkPulseReachedTop(CRGB *leds, uint8_t count) {
       uint8_t endIdx = mirrored ? middle : count;
-      if (activated && (advanceUp == (endIdx-1))) {
+      if (_activated && (advanceUp == (endIdx-1))) {
         this->completed(leds, count);
         return true;
       }
       return false;
     }
     bool advancePulse(CRGB *leds, uint8_t count) {
-      if (activated) {
+      if (_activated) {
         if (fadePulse) {
           // fade any previous leds to create a color trail
           this->fadeToBlack(leds, count);
@@ -403,7 +403,7 @@ class ezBlasterRepeatingPulse : public ezPattern
     }
     bool advancePulseUp(CRGB *leds, uint8_t count) {
       // Advance pixel postion up  the strip, rolling off the end
-      advanceUp = (advanceUp + delta);
+      advanceUp = (advanceUp + _delta);
 
       // determine the end if we are mirrored or not
       uint8_t endIdx = mirrored ? middle : count;
@@ -416,7 +416,7 @@ class ezBlasterRepeatingPulse : public ezPattern
           int8_t pos = (advanceUp - (startIdx+w));
           // only set the color if position is within range, otherwise ignore
           if (pos > -1 && pos < endIdx)
-            leds[pos] = color;
+            leds[pos] = _color;
         }
         // black out between pulses
         if ((r+1) < repeats) {
@@ -431,7 +431,7 @@ class ezBlasterRepeatingPulse : public ezPattern
     }
     bool advancePulseDown(CRGB *leds, uint8_t count) {
       // Advance pixel postion down the strip, rolling off the end
-      advanceDown = (advanceDown - delta);
+      advanceDown = (advanceDown - _delta);
 
       // determine the end if we are mirrored or not
       uint8_t endIdx = mirrored ? middle : 0;
@@ -445,7 +445,7 @@ class ezBlasterRepeatingPulse : public ezPattern
           int8_t pos = (advanceDown + (startIdx+w));
           // only set the color if position is within range, otherwise ignore
           if (pos < count && pos >= endIdx)
-            leds[pos] = color;
+            leds[pos] = _color;
         }
         // black out between pulses
         if ((r+1) < repeats) {
@@ -462,15 +462,15 @@ class ezBlasterRepeatingPulse : public ezPattern
     ezBlasterRepeatingPulse(CRGB initialColor, uint8_t eyeWidth = 2, bool mirroredStrip = 0, callback_function callback = 0, uint8_t repeating = 2, uint8_t spacing = 2, uint8_t frameSpeed = 20, bool trailingFade = 0) {
       initialize(initialColor, eyeWidth, repeating, spacing, trailingFade);
       mirrored = mirroredStrip;
-      callbackPtr = callback;
-      frameRate = frameSpeed;
+      _callbackPtr = callback;
+      _frameRate = frameSpeed;
     }
     ~ezBlasterRepeatingPulse() {
-        callbackPtr = 0;
+        _callbackPtr = 0;
     }
 
     void initialize(CRGB initialColor, uint8_t eyeWidth, uint8_t repeating, uint8_t spacing, bool trailingFade) {
-      color = CRGB(initialColor.r, initialColor.g, initialColor.b);
+      _color = CRGB(initialColor.r, initialColor.g, initialColor.b);
       width = eyeWidth;
       repeats = repeating;
       space = spacing;
@@ -483,12 +483,12 @@ class ezBlasterRepeatingPulse : public ezPattern
       advanceUp = 0;
       advanceDown = count-1;
       middle = count/2;
-      activated = 1;
+      _activated = 1;
     }
 
     void updateDisplay(CRGB *leds, uint8_t count) {
       // Advance pixels to next position.
-      EVERY_N_MILLISECONDS(frameRate) {
+      EVERY_N_MILLISECONDS(_frameRate) {
         if (checkPulseFinshed(leds, count)) {
           this->fadeToBlack(leds, count);
           debugLog("Repeater Pulse - ending blaster pulse");

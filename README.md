@@ -1,4 +1,4 @@
-## mando-blaster 1.0
+## se14r-blaster 1.0
 This is a simple Arduino sketch for building electronic kits for various 3d printed
 blasters using Ardunio components.
 
@@ -6,11 +6,13 @@ blasters using Ardunio components.
 * Arduino Nano v3
 * DF Player Mini
 * Speaker Amp - PAM8302A
-* Single LED - Neopixel
+* 7 bit LED - Neopixel
 * 40mm 2W speaker
 * 7mm momentary switch
-* 5v Regulator - LM2596
+* 5v DC Buck converter
 * Lipo 7.4v
+* DRV2605 board
+* ERM haptic motor
 
 
 ## Required Libraries
@@ -19,17 +21,19 @@ There's are number of libraries that you will need to install using the  Library
  2. FastLED
  4. FireTimer
  5. ezButton
+ 6. Adafruit_DRV2605
 
 ## Setup and Configuration
 The code can be used by updating the values in config.h based on your components,
 wiring, and audio tracks.
 
 ```c++   
-#define ENABLE_DEBUG               0
+#define ENABLE_DEBUG               1
 
-// Enable any items in your setup by uncommenting
+// Comment out if you want to disable audio
 #define ENABLE_EASY_AUDIO          1 //Enable all audio 
 #define ENABLE_EASY_BUTTON         1 //Enable all buttons
+#define ENABLE_EASY_HAPTIC .       1 //Enable haptic motors
 
 // Pin configuration for MP3 Player
 #define AUDIO_RX_PIN        10
@@ -38,11 +42,11 @@ wiring, and audio tracks.
 // Pin configuration for all momentary triggers
 #define TRIGGER_PIN         8
 
-// Pin configuration for front barrel WS2812B LED
-#define SINGLE_LED_CNT      1
-#define FIRE_LED_PIN        13 
+// Pin configuration for front barrel WS2812B 7bit LED
+#define FIRE_LED_PIN        13
+#define FIRE_LED_CNT        7
 
-// track by file index
+// track by file index - upload these to the SD card in the correct order
 #define TRACK_START_UP        1
 #define TRACK_CHANGE_MODE     2
 #define TRACK_FIRE_A          3

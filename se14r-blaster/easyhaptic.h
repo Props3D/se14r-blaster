@@ -9,22 +9,21 @@
 /**
  * EasyHaptic is based on DRV2605L breakout board, and provides simple setup, and simple vibration playback.
  * 
- * Constructor takes rx and tx pins as inputs, but will default to 0 and 1.
- * eg: EasyAudio audio(0, 1);
+ * Default constructor takes no parameters
+ * eg: EasyHaptic motor;
  * 
- * Call the begin function to initialize the serial comms, and set the volume.
- * Volume range is 0 - 30, default is 25.
- * eg.audio.begin(15);
+ * Call the begin function to initialize the driver, set the mode, select library, and set waveforms.
+ * eg.motor.begin();
  * 
- * Playback is by track index. The track index is determined by the order in which 
+ * Motor can be activated 
  * the files are loaded/copied onto the SD card.
  * eg. audio.playTrack(1);
  */
 class EasyHaptic
 {
   private:
-    Adafruit_DRV2605 drv;
-    bool activated = false;
+    Adafruit_DRV2605 _drv;
+    bool _activated = false;
 
   public:
     EasyHaptic() {};
@@ -32,14 +31,15 @@ class EasyHaptic
     void begin() {
 #ifdef ENABLE_EASY_HAPTIC
       debugLog("setup haptic motor");
-      drv.begin();
+      _drv.begin();
       // I2C trigger by sending 'go' command 
-      drv.setMode(DRV2605_MODE_INTTRIG); // default, internal trigger when sending GO command
+      _drv.setMode(DRV2605_MODE_INTTRIG); // default, internal trigger when sending GO command
 
-      drv.selectLibrary(1);
-      drv.setWaveform(0, 84); // ramp up medium 1, see datasheet part 11.2
-      drv.setWaveform(1, 1);  // strong click 100%, see datasheet part 11.2
-      drv.setWaveform(2, 0);  // end of waveforms
+      _drv.selectLibrary(1);
+      _drv.setWaveform(0, 84); // ramp up medium 1, see datasheet part 11.2
+      _drv.setWaveform(1, 14); // strong buzz 100%, see datasheet part 11.2
+      _drv.setWaveform(2, 14); // strong buzz 100%, see datasheet part 11.2
+      _drv.setWaveform(3, 0);  // end of waveforms
 #endif
     }
 
@@ -49,7 +49,7 @@ class EasyHaptic
      */
     void activate() {
       debugLog("activating haptic motor");
-      activated = true;
+      _activated = true;
     }
 
     /**
@@ -59,9 +59,9 @@ class EasyHaptic
     void updateMotor() {
 #ifdef ENABLE_EASY_HAPTIC
       debugLog("updating haptics");
-      if (activated) {
-        drv.go();
-        activated = !activated;
+      if (_activated) {
+        _drv.go();
+        _activated = !_activated;
       }
 #endif
     }
