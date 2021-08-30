@@ -11,8 +11,8 @@ blasters using Ardunio components.
 * 7mm momentary switch
 * 5v DC Buck converter
 * Lipo 7.4v
-* DRV2605 board
-* ERM haptic motor
+* DRV2605L breakout board
+* 2x ERM haptic motor
 
 
 ## Required Libraries
@@ -33,7 +33,7 @@ wiring, and audio tracks.
 // Comment out if you want to disable audio
 #define ENABLE_EASY_AUDIO          1 //Enable all audio 
 #define ENABLE_EASY_BUTTON         1 //Enable all buttons
-#define ENABLE_EASY_HAPTIC .       1 //Enable haptic motors
+#define ENABLE_EASY_HAPTIC         1 //Enable haptic motors
 
 // Pin configuration for MP3 Player
 #define AUDIO_RX_PIN        10
