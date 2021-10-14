@@ -13,13 +13,14 @@ Note that prerelease models have been tested and work, but do not come with inst
 * Arduino Nano v3
 * DF Player Mini
 * Speaker Amp - PAM8302A
-* 7 bit LED - Neopixel
+* 7 bit LED - Neopixel (circular, NOT the ring)
 * 40mm 2W speaker
 * 7mm momentary switch
-* 5v DC Buck converter
+* Mini 360 DC-DC Buck Converter
 * Lipo 7.4v
-* DRV2605L breakout board
-* 2x ERM haptic motor
+* OPTIONAL
+* * DRV2605L breakout board
+* * 1 or 2 ERM haptic motor 8mm
 
 ## Parts
 
