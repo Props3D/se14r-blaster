@@ -16,16 +16,20 @@
 #define ENABLE_DEBUG         1
 
 // Comment out if you want to disable audio
-#define ENABLE_EASY_AUDIO          1 //Enable all audio 
-#define ENABLE_EASY_BUTTON         1 //Enable all buttons
-#define ENABLE_EASY_HAPTIC         1 //Enable haptic motors
+#define ENABLE_EASY_AUDIO            1 //Enable all audio 
+#define ENABLE_EASY_BUTTON           1 //Enable all buttons
+#define ENABLE_EASY_HAPTIC_ANALOG    1 //Enable haptic motors
+//#define ENABLE_EASY_HAPTIC_2605      1 //Enable haptic motors
 
 // Pin configuration for MP3 Player
-#define AUDIO_RX_PIN        10
-#define AUDIO_TX_PIN        11
+#define AUDIO_RX_PIN        5
+#define AUDIO_TX_PIN        4
 
 // Pin configuration for all momentary triggers
-#define TRIGGER_PIN         8
+#define TRIGGER_PIN         3
+
+// Pin for vibration motor digital pin 
+#define HAPTIC_PIN          2
 
 // Pin configuration for front barrel WS2812B 7bit LED
 #define FIRE_LED_PIN        13

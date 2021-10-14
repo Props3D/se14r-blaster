@@ -23,7 +23,7 @@ EasyAudio audio(AUDIO_RX_PIN, AUDIO_TX_PIN);
 EasyButton trigger(TRIGGER_PIN);
 
 EasyLedv3<FIRE_LED_CNT, FIRE_LED_PIN> fireLed;
-ezBlasterShot blasterShot(fireLed.RED, fireLed.ORANGE, 3);  // initialize colors to starting fire mode
+ezBlasterShot blasterShot(fireLed.RED, fireLed.ORANGE, 4);  // initialize colors to starting fire mode
 
 EasyCounter fireCounter("fire", TRACK_FIRE_ARR, TRACK_CLIP_EMPTY, TRACK_CLIP_RELOAD);
 EasyCounter stunCounter("stun", TRACK_STUN_ARR, TRACK_CLIP_EMPTY, TRACK_CLIP_RELOAD);
@@ -83,7 +83,7 @@ void loop () {
  * Run the haptic motor pattern
  */
 void runHapticPlayback() {
-  haptic.playWaveforms();
+  haptic.updateMotor();
 }
 /**
  * Playback the next queued track

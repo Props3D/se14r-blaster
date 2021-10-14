@@ -26,6 +26,7 @@ class EasyHaptic
   private:
     Adafruit_DRV2605 _drv;
     bool _activated = false;
+    unsigned long _activatedTimer  = 0;     // time when the buzzer started
 
   public:
     EasyHaptic() {};
@@ -157,7 +158,7 @@ class EasyHaptic
      * 123 − Smooth Hum 5 (No kick or brake pulse) – 10%
      */
     void begin() {
-#ifdef ENABLE_EASY_HAPTIC
+#ifdef ENABLE_EASY_HAPTIC_2605
       debugLog("setup haptic motor");
       // initialize the driver library
       _drv.begin();
@@ -172,6 +173,10 @@ class EasyHaptic
       _drv.setWaveform(1, 15); // 750 ms Alert 100% 
       _drv.setWaveform(2, 0);  // end of waveforms
 #endif
+#ifdef ENABLE_EASY_HAPTIC_ANALOG
+       debugLog("setup haptic motor");
+       pinMode(HAPTIC_PIN, OUTPUT );
+#endif
     }
 
     /**
@@ -179,22 +184,33 @@ class EasyHaptic
      * See ezPattern for classes.
      */
     void activate() {
-#ifdef ENABLE_EASY_HAPTIC
       debugLog("activating haptic motor");
       _activated = true;
-#endif
+      _activatedTimer = millis(); // capture the time for timing the deactivation
     }
 
     /**
      * This should be called in the main program loop().
      * The call is a proxy to the ezPattern, if one has been provided.
      */
-    void playWaveforms() {
-#ifdef ENABLE_EASY_HAPTIC
+    void updateMotor() {
+#ifdef ENABLE_EASY_HAPTIC_2605
       if (_activated) {
         debugLog("updating haptics");
         _drv.go();
         _activated = !_activated;
+      }
+#endif
+#ifdef ENABLE_EASY_HAPTIC_ANALOG
+      if (_activated) {
+        debugLog("enable haptics");
+        digitalWrite(HAPTIC_PIN, HIGH);
+        long duration = millis() - _activatedTimer;
+        if (duration > 800) {
+          debugLog("disable haptics");
+          _activated = !_activated;
+          digitalWrite(HAPTIC_PIN, LOW);
+        }
       }
 #endif
     }
