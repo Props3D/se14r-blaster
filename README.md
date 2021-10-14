@@ -26,7 +26,7 @@ Mini 360 DC-DC Buck Converter | Lipo 7.4v
 
 ## Test Board Reference Design
 
-![SE14r](https://user-images.githubusercontent.com/20442880/137375572-a5b17f04-4459-471a-adc4-60f0011be068.jpg)
+![SE14r](https://user-images.githubusercontent.com/20442880/137375634-33618817-6704-49bb-8df2-a8f4f221b191.JPG)
 
 ## Parts
 
