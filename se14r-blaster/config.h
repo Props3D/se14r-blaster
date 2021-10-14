@@ -13,13 +13,13 @@
  *    enabled == 1
  *    disabled == 0
  */
-#define ENABLE_DEBUG         1
+#define ENABLE_DEBUG         0
 
-// Comment out if you want to disable audio
+// Comment out if you want to disable any component
 #define ENABLE_EASY_AUDIO            1 //Enable all audio 
 #define ENABLE_EASY_BUTTON           1 //Enable all buttons
-#define ENABLE_EASY_HAPTIC_ANALOG    1 //Enable haptic motors
-//#define ENABLE_EASY_HAPTIC_2605      1 //Enable haptic motors
+#define ENABLE_EASY_HAPTIC_2605      1 //Enable haptic driver - disable if using analog
+//#define ENABLE_EASY_HAPTIC_ANALOG    1 //Enable analog vibration motors - diable if using driver
 
 // Pin configuration for MP3 Player
 #define AUDIO_RX_PIN        5
