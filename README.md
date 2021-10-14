@@ -5,8 +5,7 @@ Note that prerelease models have been tested and work, but do not come with inst
 
 ## Props 3D
 * Join the Props3D Discord: https://discord.gg/NSfZcCfJU6
-* Follow progress on instagram: https://www.instagram.com/props3dpro/
-*                               https://www.instagram.com/craiggulliver/
+* Follow progress on instagram: https://www.instagram.com/props3dpro/ or https://www.instagram.com/craiggulliver/
 * Subscribe on Youtube: https://www.youtube.com/c/Props3D
 * Download released designs: https://www.thingiverse.com/props3dpro/designs
 
