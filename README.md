@@ -18,6 +18,7 @@ Note that prerelease models have been tested and work, but do not come with inst
 * 7mm momentary switch
 * Mini 360 DC-DC Buck Converter
 * Lipo 7.4v
+* 2 X 1K Resister
 * OPTIONAL
 * * DRV2605L breakout board
 * * 1 or 2 ERM haptic motor 8mm
