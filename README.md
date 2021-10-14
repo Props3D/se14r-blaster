@@ -23,6 +23,8 @@ Note that prerelease models have been tested and work, but do not come with inst
 * * DRV2605L breakout board
 * * 1 or 2 ERM haptic motor 8mm
 
+First Header | Second Header
+------------ | -------------
 Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
 
