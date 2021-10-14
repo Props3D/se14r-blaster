@@ -24,6 +24,10 @@ Mini 360 DC-DC Buck Converter | Lipo 7.4v
 ![1K Resister](https://user-images.githubusercontent.com/20442880/137374919-023f0bea-65f6-46a1-9d45-69f5a79e6916.jpg) | ![DRV2605L with 8mm ERM](https://user-images.githubusercontent.com/20442880/137374950-a2673b35-5a02-46b6-b322-de556f20e97e.jpg)
 2 X 1K Resister | DRV2605L with 8mm ERM (Optional)
 
+## Test Board Reference Design
+
+![SE14r](https://user-images.githubusercontent.com/20442880/137375572-a5b17f04-4459-471a-adc4-60f0011be068.jpg)
+
 ## Parts
 
 * 4x20 pellet gun scope (ebay or aliexpress)
