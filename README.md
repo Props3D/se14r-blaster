@@ -3,8 +3,8 @@ Code for the Star Wars SE-14r blaster from Props 3D
 
 Note that prerelease models have been tested and work, but do not come with instructions or garuntee that everything fits together properly. If you want have feedback please post on our discord(https://discord.gg/NSfZcCfJU6) on the #project-starwars-se14r channel
 
-## Join Props 3D
-* Props3D Discord: https://discord.gg/NSfZcCfJU6
+## Props 3D
+* Join the Props3D Discord: https://discord.gg/NSfZcCfJU6
 * Follow progress on instagram: https://www.instagram.com/props3dpro/
 * Subscribe on Youtube: https://www.youtube.com/c/Props3D
 * Download released designs: https://www.thingiverse.com/props3dpro/designs
