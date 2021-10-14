@@ -11,7 +11,7 @@ Note that prerelease models have been tested and work, but do not come with inst
 
 ## Electonic Components
 * Arduino Nano v3
-* DF Player Mini
+* DF Player Mini + 64mb Micro SD Card
 * Speaker Amp - PAM8302A
 * 7 bit LED - Neopixel (circular, NOT the ring)
 * 40mm 2W speaker
