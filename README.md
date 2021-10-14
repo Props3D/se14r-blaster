@@ -23,17 +23,17 @@ Note that prerelease models have been tested and work, but do not come with inst
 ## Parts
 
 * 4x20 pellet gun scope (ebay or aliexpress)
-* M5X8~12 Flat 4 - Grips
-* M4X12 Socket 2 - Reciever Joiner
-* M4X8 Button 3 - Scope
-* M3X6 Button 2 - Haptic Driver
-* M3X4~8 Button 4 - Battery Cover
-* M3X6 Socket 3 - Trigger switch / LED
-* M3X4~8 Grub 5 - BarrelCap / Sight
-* M4X6~8 Grub 6 - Magazine/Stock Bracket
+* M5X8mm~12mm Flat X 4 - Grips
+* M4X12mm Socket X 2 - Reciever Joiner
+* M4X8mm Button X 3 - Scope
+* M3X6mm Button X 2 - Haptic Driver
+* M3X4~8mm Button X 4 - Battery Cover
+* M3X6mm Socket X 3 - Trigger switch / LED
+* M3X4~8mm Grub X 5 - BarrelCap / Sight
+* M4X6~8mm Grub X 6 - Magazine/Stock Bracket
 
 ## Required Libraries
-There's are number of libraries that you will need to install using the  Library Manager:
+There's are number of libraries that you will need to install using the Arduino Library Manager:
  1. DFPlayerMini_Fast
  2. FastLED
  4. FireTimer
