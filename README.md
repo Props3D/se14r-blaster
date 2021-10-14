@@ -1,4 +1,4 @@
-## se14r-blaster 0.4 - PreRelease
+## se14r-blaster V0.4 - PreRelease
 Code for the Star Wars SE-14r blaster from Props 3D
 Note that prerelease models have been tested and work, but do not come with instructions or garuntee that everything fits together properly. If you want have feedback please post on our discord(https://discord.gg/NSfZcCfJU6) on the #project-starwars-se14r channel
 
