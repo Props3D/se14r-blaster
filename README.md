@@ -3,10 +3,10 @@ Code for the Star Wars SE-14r blaster from Props 3D
 Note that prerelease models have been tested and work, but do not come with instructions or garuntee that everything fits together properly. If you want have feedback please post on our discord(https://discord.gg/NSfZcCfJU6) on the #project-starwars-se14r channel
 
 ## Join Props 3D
-Props3D Discord: https://discord.gg/NSfZcCfJU6
-Follow progress on instagram: https://www.instagram.com/props3dpro/
-Subscribe on Youtube: https://www.youtube.com/c/Props3D
-Download released designs: https://www.thingiverse.com/props3dpro/designs
+* Props3D Discord: https://discord.gg/NSfZcCfJU6
+* Follow progress on instagram: https://www.instagram.com/props3dpro/
+* Subscribe on Youtube: https://www.youtube.com/c/Props3D
+* Download released designs: https://www.thingiverse.com/props3dpro/designs
 
 ## Electonic Components
 * Arduino Nano v3
@@ -22,15 +22,15 @@ Download released designs: https://www.thingiverse.com/props3dpro/designs
 
 ## Parts
 
-4x20 pellet gun scope (ebay or aliexpress)
-M5X8~12 Flat 4 - Grips
-M4X12 Socket 2 - Reciever Joiner
-M4X8 Button 3 - Scope
-M3X6 Button 2 - Haptic Driver
-M3X4~8 Button 4 - Battery Cover
-M3X6 Socket 3 - Trigger switch / LED
-M3X4~8 Grub 5 - BarrelCap / Sight
-M4X6~8 Grub 6 - Magazine/Stock Bracket
+* 4x20 pellet gun scope (ebay or aliexpress)
+* M5X8~12 Flat 4 - Grips
+* M4X12 Socket 2 - Reciever Joiner
+* M4X8 Button 3 - Scope
+* M3X6 Button 2 - Haptic Driver
+* M3X4~8 Button 4 - Battery Cover
+* M3X6 Socket 3 - Trigger switch / LED
+* M3X4~8 Grub 5 - BarrelCap / Sight
+* M4X6~8 Grub 6 - Magazine/Stock Bracket
 
 ## Required Libraries
 There's are number of libraries that you will need to install using the  Library Manager:
