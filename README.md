@@ -22,6 +22,7 @@ Note that prerelease models have been tested and work, but do not come with inst
 * OPTIONAL
 * * DRV2605L breakout board
 * * 1 or 2 ERM haptic motor 8mm
+![Neopixel](https://user-images.githubusercontent.com/20442880/137373537-c0e63795-afe6-468e-a40a-db7984391d5b.JPG)
 
 ## Parts
 
