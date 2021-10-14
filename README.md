@@ -1,8 +1,13 @@
-## se14r-blaster 1.0
-This is a simple Arduino sketch for building electronic kits for various 3d printed
-blasters using Ardunio components.
+## se14r-blaster 0.4
+Code for the Star Wars SE-14r blaster from Props 3D
 
-## Arduino Components
+## Join Props 3D
+Props3D Discord: https://discord.gg/NSfZcCfJU6
+Follow progress on instagram: https://www.instagram.com/props3dpro/
+Subscribe on Youtube: https://www.youtube.com/c/Props3D
+Download released designs: https://www.thingiverse.com/props3dpro/designs
+
+## Electonic Components
 * Arduino Nano v3
 * DF Player Mini
 * Speaker Amp - PAM8302A
@@ -14,6 +19,17 @@ blasters using Ardunio components.
 * DRV2605L breakout board
 * 2x ERM haptic motor
 
+## Parts
+
+4x20 pellet gun scope (ebay or aliexpress)
+M5X8~12 Flat 4 - Grips
+M4X12 Socket 2 - Reciever Joiner
+M4X8 Button 3 - Scope
+M3X6 Button 2 - Haptic Driver
+M3X4~8 Button 4 - Battery Cover
+M3X6 Socket 3 - Trigger switch / LED
+M3X4~8 Grub 5 - BarrelCap / Sight
+M4X6~8 Grub 6 - Magazine/Stock Bracket
 
 ## Required Libraries
 There's are number of libraries that you will need to install using the  Library Manager:
