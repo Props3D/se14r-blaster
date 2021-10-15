@@ -1,5 +1,11 @@
 ## se14r-blaster V0.4 - Prerelease
-Code for the Star Wars SE-14r blaster from Props 3D
+![Product Shot - SE14R](https://user-images.githubusercontent.com/20442880/137564599-ac331701-3254-4538-b71d-a3698b9f8878.jpg)
+
+Repository for the Star Wars SE-14r blaster from Props3D. 
+
+Licensed under theCreative Commons - Attribution - Non-Commercial - Share Alike license. https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+***DO NOT SELL OR DISTRIBUTE MODELS OR CODE WITHOUT PERMISSION***
 
 Note that prerelease models have been tested and work, but do not come with instructions or guarantee that everything fits together properly. If you want have feedback please post on our discord(https://discord.gg/NSfZcCfJU6) on the #project-starwars-se14r channel
 
