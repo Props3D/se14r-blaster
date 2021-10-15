@@ -103,4 +103,5 @@ to seem like it's not working. You'll need to use the terminal window to rm all 
 files and directories from the card.
 
 ## Example Wiring Diagram:
-![docs/SampleWiring.png](docs/SampleWiring.png)
+![SampleWiring](https://user-images.githubusercontent.com/20442880/137413974-aae3f170-1d8a-4850-9287-8ae751f7e130.png)
+
