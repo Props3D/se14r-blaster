@@ -3,7 +3,7 @@
 
 Repository for the Star Wars SE-14r blaster from Props3D. 
 
-Licensed under th eCreative Commons - Attribution - Non-Commercial - Share Alike license. https://creativecommons.org/licenses/by-nc-sa/4.0/
+Licensed under the Creative Commons - Attribution - Non-Commercial - Share Alike license. https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ***DO NOT SELL OR DISTRIBUTE MODELS OR CODE WITHOUT PERMISSION***
 
