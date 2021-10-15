@@ -101,3 +101,6 @@ called "/mp3".
 When using a MAC to load files, it will create hidden files that will cause the playback
 to seem like it's not working. You'll need to use the terminal window to rm all of these
 files and directories from the card.
+
+## Example Wiring Diagram:
+![docs/SampleWiring.png](docs/SampleWiring.png)
