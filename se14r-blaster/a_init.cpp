@@ -1,6 +1,6 @@
 /*
  * name:  SE-14R
- * Author:  FriskyDingo
+ * Author:  Craig Gulliver
  * Date:  2021-08-28
  * Description: Code for SE-14r blaster setup
  */
